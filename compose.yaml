@@ -1,0 +1,27 @@
+services:
+  devbox:
+    image: devbox:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: devbox
+    hostname: devbox
+    user: hristo_dev
+    stdin_open: true   # -i
+    tty: true          # -t
+    deploy:
+      resources:
+        limits:
+          cpus: "8"
+          memory: 10g
+        reservations:
+          cpus: "2"
+          memory: 4g
+    volumes:
+      - zinit-data:/home/hristo_dev/.local/share/zinit
+    ports:
+      - "3000:3000"
+      - "8080:8080"
+
+volumes:
+  zinit-data:
