@@ -18,10 +18,10 @@ services:
           cpus: "2"
           memory: 4g
     volumes:
-      - zinit-data:/home/hristo_dev/.local/share/zinit
+      - local:/home/hristo_dev/.local/
     ports:
       - "3000:3000"
       - "8080:8080"
 
 volumes:
-  zinit-data:
+  local:

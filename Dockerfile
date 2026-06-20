@@ -4,8 +4,19 @@ ARG USERNAME=hristo_dev
 ARG USER_UID=1000
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl xz-utils ca-certificates zsh sudo \
-    && rm -rf /var/lib/apt/lists/*
+    curl xz-utils ca-certificates zsh sudo ncurses-bin locales \
+    && rm -rf /var/lib/apt/lists/* \
+    && sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen \
+    && locale-gen
+
+ENV LANG=en_US.UTF-8 \
+    LANGUAGE=en_US:en \
+    LC_ALL=en_US.UTF-8
+
+# RUN curl -o /tmp/kitty.terminfo \
+#     https://raw.githubusercontent.com/kovidgoyal/kitty/master/terminfo/kitty.terminfo \
+#     && tic -x -o /usr/share/terminfo /tmp/kitty.terminfo \
+#     && rm /tmp/kitty.terminfo
 
 # 1. Create the user FIRST
 RUN useradd -m -u ${USER_UID} -s /bin/zsh ${USERNAME} \
@@ -33,9 +44,7 @@ RUN . /home/${USERNAME}/.nix-profile/etc/profile.d/nix.sh && \
 
 # 6. Clone config repo
 RUN git clone https://github.com/hgoumner/config_repo.git /home/${USERNAME}/config_repo
-RUN cd /home/${USERNAME}/config_repo/ && stow zsh
-RUN cd /home/${USERNAME}/config_repo/ && stow starship
+RUN cd /home/${USERNAME}/config_repo/ && stow zsh git fzf lla lsd starship nvim bottom television yazi
 RUN . /home/${USERNAME}/.zshenv
-#RUN . /home/${USERNAME}/.config/zsh/.zshrc
 
 CMD ["/bin/zsh"]
