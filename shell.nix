@@ -1,6 +1,8 @@
 ## Core utils
 # curl
 # git
+# make
+# stow
 # tar
 # unzip
 # wget
@@ -29,6 +31,9 @@
 ## File manager
 # yazi
 
+## logging
+# gonzo
+
 ## Python
 # uv
 # uvx
@@ -43,7 +48,8 @@ pkgs.buildEnv {
     git delta difftastic lazygit
     fd fzf igrep ripgrep 
     bat bottom duf dust jiq lla lsd starship tabiew zoxide
-    yazi
+    yazi television
+    gonzo
     uv
     zsh
     cargo rustc
