@@ -19,9 +19,11 @@ services:
           memory: 4g
     volumes:
       - local:/home/hristo_dev/.local/
+      - config:/home/hristo_dev/.config/
     ports:
       - "3000:3000"
       - "8080:8080"
 
 volumes:
   local:
+  config:
