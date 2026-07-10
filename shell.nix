@@ -1,6 +1,6 @@
 ## Core utils
 # curl
-# git
+# gpg
 # make
 # stow
 # tar
@@ -10,17 +10,20 @@
 ## git
 # delta
 # difftastic
+# git
 # lazygit
 
 ## searching
 # fd
 # fzf
-# igrep
 # ripgrep
+# scooter
 
 ## Modern CLI replacements
 # bat
 # bottom
+# duf
+# dust
 # jiq
 # lla
 # lsd
@@ -30,9 +33,12 @@
 
 ## File manager
 # yazi
+# television
 
 ## logging
 # gonzo
+# hl-log-viewer
+# ov
 
 ## Python
 # uv
@@ -43,13 +49,13 @@
 pkgs.buildEnv {
   name = "dev-tools";
   paths = with pkgs; [
-    curl gnumake gnutar stow unzip wget
+    curl gnumake gnupg gnutar stow unzip wget
     neovim
     git delta difftastic lazygit
-    fd fzf igrep ripgrep 
+    fd fzf ripgrep scooter
     bat bottom duf dust jiq lla lsd starship tabiew zoxide
     yazi television
-    gonzo
+    gonzo hl-log-viewer ov
     uv
     zsh
     cargo rustc
