@@ -1,25 +1,31 @@
 services:
   devbox:
     image: devbox:latest
+    env_file:
+      .env
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - USERNAME_HOST
+        - USERNAME_CONTAINER
+        - USER_UID_CONTAINER
     container_name: devbox
     hostname: devbox
-    user: hristo_dev
-    stdin_open: true   # -i
-    tty: true          # -t
+    user: ${USERNAME_CONTAINER}
+    stdin_open: true
+    tty: true
     deploy:
       resources:
         limits:
-          cpus: "8"
-          memory: 10g
+          cpus: ${LIMIT_CPU}
+          memory: ${LIMIT_MEM}
         reservations:
-          cpus: "2"
-          memory: 4g
+          cpus: ${RESERVATION_CPU}
+          memory: ${RESERVATION_MEM}
     volumes:
-      - local:/home/hristo_dev/.local/
-      - config:/home/hristo_dev/.config/
+      - local:/home/${USERNAME_CONTAINER}/.local/
+      - config:/home/${USERNAME_CONTAINER}/.config/
     ports:
       - "3000:3000"
       - "8080:8080"
