@@ -13,11 +13,6 @@ ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
     LC_ALL=en_US.UTF-8
 
-# RUN curl -o /tmp/kitty.terminfo \
-#     https://raw.githubusercontent.com/kovidgoyal/kitty/master/terminfo/kitty.terminfo \
-#     && tic -x -o /usr/share/terminfo /tmp/kitty.terminfo \
-#     && rm /tmp/kitty.terminfo
-
 # 1. Create the user FIRST
 RUN useradd -m -u ${USER_UID_CONTAINER} -s /bin/zsh ${USERNAME_CONTAINER} \
     && echo "${USERNAME_CONTAINER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
@@ -28,12 +23,16 @@ RUN groupadd -r nixbld \
     && mkdir -m 0755 /nix \
     && chown ${USERNAME_CONTAINER} /nix
 
+COPY zscaler.crt /usr/local/share/ca-certificates/zscaler.crt
+RUN update-ca-certificates
+
 # 3. Switch to the user for the rest of the Nix setup
 USER ${USERNAME_CONTAINER}
 WORKDIR /home/${USERNAME_CONTAINER}
 
 # 4. Install Nix AS the user (writes into /home/$USERNAME_CONTAINER/.nix-profile)
-RUN curl -L https://nixos.org/nix/install | sh -s -- --no-daemon --yes
+ENV NIX_CURL_FLAGS="--http1.1"
+RUN curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- --no-daemon --yes
 
 ENV PATH="/home/${USERNAME_CONTAINER}/.nix-profile/bin:${PATH}"
 
@@ -43,8 +42,9 @@ RUN . /home/${USERNAME_CONTAINER}/.nix-profile/etc/profile.d/nix.sh && \
     nix-env -if /home/${USERNAME_CONTAINER}/shell.nix --extra-experimental-features nix-command
 
 # 6. Clone config repo
+RUN rm -rf /home/${USERNAME_CONTAINER}/lazygit /home/${USERNAME_CONTAINER}/lla
 RUN git clone https://github.com/hgoumner/config_repo.git /home/${USERNAME_CONTAINER}/config_repo
-RUN cd /home/${USERNAME_CONTAINER}/config_repo/ && stow zsh git fzf lla lsd starship lazynvim bottom television yazi
+RUN cd /home/${USERNAME_CONTAINER}/config_repo/ && git switch devcontainer && stow zsh git fzf lla lsd starship lazynvim bottom television yazi
 RUN . /home/${USERNAME_CONTAINER}/.zshenv
 
 CMD ["/bin/zsh"]

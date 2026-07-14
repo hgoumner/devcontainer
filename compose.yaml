@@ -1,15 +1,14 @@
 services:
   devbox:
     image: devbox:latest
-    env_file:
-      .env
+    env_file: .env
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        - USERNAME_HOST
-        - USERNAME_CONTAINER
-        - USER_UID_CONTAINER
+        USERNAME_HOST: ${USERNAME_HOST}
+        USERNAME_CONTAINER: ${USERNAME_CONTAINER}
+        USER_UID_CONTAINER: ${USER_UID_CONTAINER}
     container_name: devbox
     hostname: devbox
     user: ${USERNAME_CONTAINER}
@@ -26,6 +25,7 @@ services:
     volumes:
       - local:/home/${USERNAME_CONTAINER}/.local/
       - config:/home/${USERNAME_CONTAINER}/.config/
+      - /Users/${USERNAME_HOST}/Repositories:/home/${USERNAME_CONTAINER}/Repositories
     ports:
       - "3000:3000"
       - "8080:8080"
@@ -33,3 +33,4 @@ services:
 volumes:
   local:
   config:
+

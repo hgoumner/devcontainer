@@ -6,6 +6,8 @@
 # tar
 # unzip
 # wget
+# xclip
+# xsel
 
 ## git
 # delta
@@ -29,6 +31,7 @@
 # lsd
 # starship
 # tabiew
+# zellij
 # zoxide
 
 ## File manager
@@ -49,17 +52,15 @@
 pkgs.buildEnv {
   name = "dev-tools";
   paths = with pkgs; [
-    curl gnumake gnupg gnutar stow unzip wget
+    curl gnumake gnupg gnutar stow unzip wget xclip xsel
     neovim
     git delta difftastic lazygit
     fd fzf ripgrep scooter
-    bat bottom duf dust jiq lla lsd starship tabiew zoxide
+    bat bottom duf dust jiq lla lsd starship tabiew zellij zoxide
     yazi television
     gonzo hl-log-viewer ov
     uv
     zsh
-    cargo rustc
-    nodejs_26
     openssh
   ];
 }
