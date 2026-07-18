@@ -47,4 +47,5 @@ RUN git clone https://github.com/hgoumner/config_repo.git /home/${USERNAME_CONTA
 RUN cd /home/${USERNAME_CONTAINER}/config_repo/ && git switch devcontainer && stow zsh git fzf lla lsd starship lazynvim bottom television yazi
 RUN . /home/${USERNAME_CONTAINER}/.zshenv
 
-CMD ["/bin/zsh"]
+ENV SHELL=/bin/zsh
+

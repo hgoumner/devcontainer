@@ -21,7 +21,11 @@
 # ripgrep
 # scooter
 
+# data
+# duckdb
+
 ## Modern CLI replacements
+# atuin
 # bat
 # bottom
 # duf
@@ -29,8 +33,11 @@
 # jiq
 # lla
 # lsd
+# ouch
+# rich-cli
 # starship
 # tabiew
+# vivid
 # zellij
 # zoxide
 
@@ -41,6 +48,7 @@
 ## logging
 # gonzo
 # hl-log-viewer
+# less
 # ov
 
 ## Python
@@ -56,9 +64,10 @@ pkgs.buildEnv {
     neovim
     git delta difftastic lazygit
     fd fzf ripgrep scooter
-    bat bottom duf dust jiq lla lsd starship tabiew zellij zoxide
+    duckdb
+    atuin bat bottom duf dust jiq lla lsd ouch rich-cli starship tabiew vivid zellij zoxide
     yazi television
-    gonzo hl-log-viewer ov
+    gonzo hl-log-viewer less ov
     uv
     zsh
     openssh
