@@ -6,7 +6,6 @@ packages=(
   "Ape/simple-status"
   "h-hg/yamb"
   "malick-tammal/monokai"
-  "wylie102/duckdb"
   "yazi-rs/plugins:diff"
   "yazi-rs/plugins:git"
   "yazi-rs/plugins:jump-to-char"

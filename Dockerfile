@@ -44,8 +44,9 @@ RUN . /home/${USERNAME_CONTAINER}/.nix-profile/etc/profile.d/nix.sh && \
 # 6. Clone config repo
 RUN rm -rf /home/${USERNAME_CONTAINER}/lazygit /home/${USERNAME_CONTAINER}/lla
 RUN git clone https://github.com/hgoumner/config_repo.git /home/${USERNAME_CONTAINER}/config_repo
-RUN cd /home/${USERNAME_CONTAINER}/config_repo/ && git switch devcontainer && stow zsh git fzf lla lsd starship lazynvim bottom television yazi
-RUN . /home/${USERNAME_CONTAINER}/.zshenv
+# RUN cd /home/${USERNAME_CONTAINER}/config_repo/ && git switch devcontainer && stow zsh git fzf lla lsd starship lazynvim bottom television yazi
+# RUN . /home/${USERNAME_CONTAINER}/.zshenv
 
 ENV SHELL=/bin/zsh
 
+ENTRYPOINT ["/bin/zsh"]
