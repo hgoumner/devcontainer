@@ -1,5 +1,2 @@
 # environment file
 .env
-
-# KBC ZScaler certificate
-zscaler.crt
