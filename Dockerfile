@@ -2,6 +2,7 @@ FROM debian:bookworm-slim
 
 ARG USERNAME_CONTAINER
 ARG USER_UID_CONTAINER
+ARG TARGETPLATFORM
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -44,6 +45,11 @@ RUN mkdir -p /home/${USERNAME_CONTAINER}/.ssh \
         -e 's/^#\?PubkeyAuthentication.*/PubkeyAuthentication yes/' \
         /etc/ssh/sshd_config \
     && echo "AllowUsers ${USERNAME_CONTAINER}" >> /etc/ssh/sshd_config
+
+RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
+      mkdir -p /etc/nix && \
+      echo "filter-syscalls = false" >> /etc/nix/nix.conf; \
+    fi
 
 # 4. Switch to the user for the rest of the Nix setup
 USER ${USERNAME_CONTAINER}
