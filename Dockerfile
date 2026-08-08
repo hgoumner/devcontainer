@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
 ARG USERNAME_CONTAINER
 ARG USER_UID_CONTAINER
@@ -9,10 +9,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
     git \
+    gpg \
     locales \
+    make \
     ncurses-bin \
     openssh-server \
+    stow \
     sudo \
+    tar \
+    unzip \
+    wget \
     xz-utils \
     zsh \
     && rm -rf /var/lib/apt/lists/* \

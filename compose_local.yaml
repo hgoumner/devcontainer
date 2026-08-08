@@ -1,6 +1,6 @@
 services:
   devbox:
-    image: ghcr.io/hgoumner/devbox:amd64
+    image: devbox:amd64
     env_file: .env
     container_name: devbox
     hostname: devbox
@@ -15,14 +15,6 @@ services:
         reservations:
           cpus: ${RESERVATION_CPU}
           memory: ${RESERVATION_MEM}
-    volumes:
-      - local:/home/${USERNAME_CONTAINER}/.local/
-      - config:/home/${USERNAME_CONTAINER}/.config/
     ports:
-      - "3000:3000"
-      - "8080:8080"
-
-volumes:
-  local:
-  config:
+      - "2222:22"
 
