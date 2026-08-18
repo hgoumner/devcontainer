@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     stow \
     sudo \
     tar \
+    ugrep \
     unzip \
     wget \
     xz-utils \
