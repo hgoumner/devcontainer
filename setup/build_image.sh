@@ -9,9 +9,7 @@ source .env
 # Disable automatic export
 set +a
 
-ARCHITECTURE=arm64
-
-podman build --platform linux/${ARCHITECTURE} \
+podman build --platform linux/${TARGETPLATFORM} \
   --build-arg USERNAME_CONTAINER=${USERNAME_CONTAINER} \
   --build-arg USER_UID_CONTAINER=${USER_UID_CONTAINER} \
-  -t devbox:${ARCHITECTURE} .
+  -t ${CONTAINER_NAME}:${TARGETPLATFORM} .

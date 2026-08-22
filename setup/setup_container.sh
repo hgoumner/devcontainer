@@ -1,23 +1,23 @@
 #!/bin/bash
 set -e
 
-CONTAINER_NAME="devbox"
-IMAGE="devbox:amd64"
-SSH_PORT="2222"
-USERNAME_CONTAINER="dev"
-
 # 1. Start the container, keeping it alive with a no-op foreground process,
 #    without touching the image's own ENTRYPOINT
 podman run -d \
   --name "${CONTAINER_NAME}" \
   --hostname "${CONTAINER_NAME}" \
   --publish "${SSH_PORT}:22" \
-  "${IMAGE}"
+  --volume /Users/jf82788/Repositories:/home/${USERNAME_CONTAINER}/Repositories \
+  --volume /Users/jf82788/Downloads:/home/${USERNAME_CONTAINER}/Downloads \
+  "${CONTAINER_NAME}:${TARGETPLATFORM}"
 
 echo "Container started, running setup steps..."
 
 echo "Copy over public ssh key..."
+ssh-keygen -R "${SSH_PORT}"
 podman cp ~/.ssh/devc.pub "${CONTAINER_NAME}":/home/${USERNAME_CONTAINER}/.ssh/authorized_keys
+podman cp ~/.ssh/id_ed25519 "${CONTAINER_NAME}":/home/${USERNAME_CONTAINER}/.ssh/
+podman cp ~/.ssh/id_ed25519.pub "${CONTAINER_NAME}":/home/${USERNAME_CONTAINER}/.ssh/
 
 echo "Configure PATH for all SSH sessions (via /etc/environment, read by PAM)..."
 podman exec --user root "${CONTAINER_NAME}" bash -c \
@@ -37,8 +37,12 @@ podman exec --user ${USERNAME_CONTAINER} "${CONTAINER_NAME}" zsh -c \
   echo "warning: sourcing raised an error, continuing anyway"
 
 echo "Load yazi plugins..."
-podman cp /xps-other/devcontainer/yazi_packages.sh ${CONTAINER_NAME}:/home/${USERNAME_CONTAINER}
+podman cp ./yazi_packages.sh ${CONTAINER_NAME}:/home/${USERNAME_CONTAINER}
 podman exec --user ${USERNAME_CONTAINER} "${CONTAINER_NAME}" bash -c "bash /home/${USERNAME_CONTAINER}/yazi_packages.sh"
 
-echo "Setup done..."
+echo "Copy additional files over to the container..."
+podman cp ~/.git-credentials ${CONTAINER_NAME}:/home/${USERNAME_CONTAINER}/
+podman exec --user ${USERNAME_CONTAINER} "${CONTAINER_NAME}" "sudo chown ${USERNAME_CONTAINER}:${USERNAME_CONTAINER} ~/.git-credentials" 
+
+echo "Basic setup done..."
 echo
