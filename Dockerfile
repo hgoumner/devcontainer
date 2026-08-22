@@ -6,6 +6,7 @@ ARG TARGETPLATFORM
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
+    bsdextrautils \
     ca-certificates \
     curl \
     git \
@@ -77,7 +78,7 @@ COPY --chown=${USERNAME_CONTAINER}:${USERNAME_CONTAINER} shell.nix /home/${USERN
 RUN . /home/${USERNAME_CONTAINER}/.nix-profile/etc/profile.d/nix.sh && \
     nix-env -if /home/${USERNAME_CONTAINER}/shell.nix --extra-experimental-features nix-command
 
-RUN git clone --depth 1 --branch devcontainer \
+RUN git clone --branch devcontainer \
     https://github.com/hgoumner/config_repo.git /home/${USERNAME_CONTAINER}/config_repo
 
 USER root
