@@ -54,7 +54,7 @@ RUN mkdir -p /home/${USERNAME_CONTAINER}/.ssh \
         /etc/ssh/sshd_config \
     && echo "AllowUsers ${USERNAME_CONTAINER}" >> /etc/ssh/sshd_config
 
-RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
+RUN if [ "$TARGETPLATFORM" = "arm64" ]; then \
       mkdir -p /etc/nix && \
       echo "filter-syscalls = false" >> /etc/nix/nix.conf; \
     fi

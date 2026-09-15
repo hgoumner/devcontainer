@@ -2,18 +2,18 @@
 
 packages=(
   "AnirudhG07/plugins-yazi:copy-file-contents"
-  "AnirudhG07/rich-preview"
   "Ape/simple-status"
-  "h-hg/yamb"
+  "Lil-Dank/lazygit"
   "malick-tammal/monokai"
   "yazi-rs/plugins:diff"
-  "yazi-rs/plugins:git"
   "yazi-rs/plugins:jump-to-char"
   "yazi-rs/plugins:smart-enter"
   "yazi-rs/plugins:smart-filter"
   "yazi-rs/plugins:toggle-pane"
   "yazi-rs/plugins:types"
   "yazi-rs/plugins:vcs-files"
+  "Rolv-Apneseth/starship"
+  "WhoSowSee/whoosh"
 )
 
 for pkg in "${packages[@]}"; do

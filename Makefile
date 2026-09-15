@@ -4,7 +4,7 @@ export
 all: setup_podman setup_container setup_certificates setup_container_python
 
 create_podman_machine:
-	podman machine init --cpus 4 --memory 8192 --disk-size 25 --provider applehv
+	podman machine init --cpus 4 --memory 10240 --disk-size 100 --provider applehv
 
 start_podman_machine:
 	podman machine start

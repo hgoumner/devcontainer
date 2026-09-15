@@ -29,7 +29,7 @@ podman exec --user root "${CONTAINER_NAME}" bash -c \
 
 echo "Stow zsh config..."
 podman exec --user ${USERNAME_CONTAINER} -w "/home/${USERNAME_CONTAINER}/config_repo" "${CONTAINER_NAME}" \
-  stow --restow zsh starship yazi lla lsd git fzf lazygit lazynvim
+  stow --restow zsh starship yazi lla lsd git fzf lazygit lazynvim uv python pip
 
 echo "Sanity-check zshenv/zshrc source without errors..."
 podman exec --user ${USERNAME_CONTAINER} "${CONTAINER_NAME}" zsh -c \
@@ -40,9 +40,7 @@ echo "Load yazi plugins..."
 podman cp ./yazi_packages.sh ${CONTAINER_NAME}:/home/${USERNAME_CONTAINER}
 podman exec --user ${USERNAME_CONTAINER} "${CONTAINER_NAME}" bash -c "bash /home/${USERNAME_CONTAINER}/yazi_packages.sh"
 
-echo "Copy additional files over to the container..."
-podman cp ~/.git-credentials ${CONTAINER_NAME}:/home/${USERNAME_CONTAINER}/
-podman exec --user ${USERNAME_CONTAINER} "${CONTAINER_NAME}" "sudo chown ${USERNAME_CONTAINER}:${USERNAME_CONTAINER} ~/.git-credentials" 
+# echo "Copy or install additional files/apps in the container..."
 
 echo "Basic setup done..."
 echo

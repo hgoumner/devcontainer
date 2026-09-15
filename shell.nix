@@ -10,5 +10,6 @@ pkgs.buildEnv {
     yazi television
     gonzo hl-log-viewer less ov
     uv conda
+    zellij
   ];
 }

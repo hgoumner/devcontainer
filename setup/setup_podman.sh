@@ -2,7 +2,7 @@
 
 # set up machine
 if ! pgrep -x 'vfkit' >/dev/null; then 
-  podman machine init --cpus 4 --memory 10240 --disk-size 25 --provider applehv
+  podman machine init --cpus 4 --memory 10240 --disk-size 100 --provider applehv
 fi
 podman machine start && \
 podman machine cp ~/devcontainer/Zscaler.pem podman-machine-default:/tmp/zscaler.pem && \
