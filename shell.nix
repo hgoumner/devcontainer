@@ -8,8 +8,6 @@ pkgs.buildEnv {
     fd fzf ripgrep scooter
     atuin bat bottom duf dust jq lla lsd ouch rich-cli rgx starship tabiew vivid zoxide
     yazi television
-    gonzo hl-log-viewer less ov
-    uv conda
-    zellij
+    uv zellij
   ];
 }

@@ -9,6 +9,7 @@ podman run -d \
   --publish "${SSH_PORT}:22" \
   --volume /Users/jf82788/Repositories:/home/${USERNAME_CONTAINER}/Repositories \
   --volume /Users/jf82788/Downloads:/home/${USERNAME_CONTAINER}/Downloads \
+  --volume /Users/jf82788/devcontainer/.conda:/home/${USERNAME_CONTAINER}/.conda \
   "${CONTAINER_NAME}:${TARGETPLATFORM}"
 
 echo "Container started, running setup steps..."

@@ -1,28 +1,28 @@
 include .env
 export
 
-all: setup_podman setup_container setup_certificates setup_container_python
+all: podman_setup container certificates container_python
 
-create_podman_machine:
+podman_create:
 	podman machine init --cpus 4 --memory 10240 --disk-size 100 --provider applehv
 
-start_podman_machine:
+podman_start:
 	podman machine start
 
-stop_podman_machine:
+podman_stop:
 	podman machine stop
 
-restart_podman_machine: stop_podman_machine start_podman_machine
+podman_restart: podman_stop podman_start
 
-setup_podman:
+podman_setup:
 	bash ./setup/setup_podman.sh
 
-setup_container:
+container:
 	bash ./setup/setup_container.sh
 
-setup_container_python:
+container_python:
 	bash ./setup/setup_container_python.sh
 
-setup_certificates:
+certificates:
 	bash ./setup/setup_certificates.sh
 
